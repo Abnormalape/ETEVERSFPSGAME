@@ -3,8 +3,16 @@ using UnityEngine;
 
 namespace FPSGame
 {
+    public enum State
+    {   // 문자/이미지를 숫자로 변환시켜주는 장치
+        // 난 솔직히 안 좋아해
+        Idle,
+        Move,
+    }
+
     public class PlayerControl : MonoBehaviour
     {
+        [SerializeField] private State currentState = State.Idle;
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private Animator refAnimator;
 
@@ -28,8 +36,10 @@ namespace FPSGame
             refAnimator.SetFloat("Horizontal", hori>0f?1f:hori<0f?-1f:0f);//삼항연산자
             refAnimator.SetFloat("Vertical", verti > 0f ? 1f : verti < 0f ? -1f : 0f);
 
-            if (hori == 0 && verti==0) { refAnimator.SetInteger("State", 0); }
-            else { refAnimator.SetInteger("State", 1); }
+            if (hori == 0 && verti==0)   {currentState = State.Idle;}
+                                    else {currentState = State.Move;}
+            
+            refAnimator.SetInteger("State", (int)currentState);
 
             reftransform.position += new Vector3(hori, 0f, verti).normalized * moveSpeed * Time.deltaTime;
         }
