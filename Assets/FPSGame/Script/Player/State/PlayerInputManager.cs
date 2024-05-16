@@ -8,8 +8,8 @@ namespace FPSGame
         public static float Vertical { get; private set; } = 0f;
         private void Update()
         {
-            Horizontal = Input.GetAxis("Horizontal");
-            Vertical = Input.GetAxis("Vertical");
+            Horizontal = Input.GetAxisRaw("Horizontal");
+            Vertical = Input.GetAxisRaw("Vertical");
         }
     }
 }
