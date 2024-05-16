@@ -11,6 +11,14 @@ namespace FPSGame
         {
             weapon.LoadWeapon(weaponHoler);
         }
+
+        private void Update()
+        {
+            if (PlayerInputManager.isFire)
+            {
+                weapon.Fire();
+            }
+        }
     }
     
 }

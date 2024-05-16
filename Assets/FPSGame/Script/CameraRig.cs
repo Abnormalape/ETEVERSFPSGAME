@@ -9,6 +9,7 @@ namespace FPSGame
 
         [SerializeField] private Transform target;
         [SerializeField] private float damping = 5f;
+        [SerializeField] private float ratationDamping = 5f;
 
         private Transform refTransform;
 
@@ -21,6 +22,9 @@ namespace FPSGame
         {
             // Lerp.
             refTransform.position = Vector3.Lerp(refTransform.position, target.position, damping * Time.deltaTime);
+
+            // Lerp
+            refTransform.rotation = Quaternion.Lerp(refTransform.rotation, target.rotation, ratationDamping * Time.deltaTime);
         }
     }
 }
