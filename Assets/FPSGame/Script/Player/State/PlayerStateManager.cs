@@ -10,17 +10,33 @@ namespace FPSGame
         public enum State
         {
             Idle,
-            Move
+            Move,
+            None
         }
 
         // 상태 변수.
-        [SerializeField] private State currentState = State.Idle;
+        [SerializeField] private State currentState = State.None;
 
         // 스테이트 컴포넌트 배열 변수.
         [SerializeField] private PlayerState[] states;
 
         // 애니메이션 컨트롤러 변수.
         [SerializeField] private PlayerAnimationController animationController;
+
+        // 플레이어 데이터
+        [SerializeField] private PlayerData data;
+
+        private void OnEnable()
+        {
+            // 처음 시작할 스테이트 설정.
+            SetState(State.Idle);
+
+            // 각 스테이트에 데이터 전파.
+            foreach (PlayerState state in states)
+            {
+                state.SetData(data);
+            }
+        }
 
         // 상태 설정 함수.
         public void SetState(State newState)
@@ -30,6 +46,11 @@ namespace FPSGame
             if (currentState == newState)
             {
                 return;
+            }
+
+            if(currentState != State.None)
+            {
+                states[(int)currentState].enabled = false;
             }
 
             // 현재 상태 스크립트 끄기.

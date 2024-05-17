@@ -4,7 +4,7 @@ namespace FPSGame
 {
     public class PlayerMoveState : PlayerState
     {
-        [SerializeField] private float moveSpeed = 5f;
+        // [SerializeField] private float moveSpeed = 5f;
 
         protected override void Update()
         {
@@ -16,7 +16,7 @@ namespace FPSGame
 
             Vector3 direction = refTransform.right * PlayerInputManager.Horizontal + refTransform.forward * PlayerInputManager.Vertical;
 
-            characterController.Move(direction.normalized * moveSpeed * Time.deltaTime); // 자체 충돌처리 가능
+            characterController.Move(direction.normalized * data.moveSpeed * Time.deltaTime); // 자체 충돌처리 가능
         }
     }
 }

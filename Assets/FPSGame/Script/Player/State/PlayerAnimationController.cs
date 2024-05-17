@@ -1,9 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.Animations;
 namespace FPSGame
 {
     internal class PlayerAnimationController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+
+        [SerializeField] private CameraRig cameraRig;
+        [SerializeField] private float rotationOffset = 0.5f;
+
+        private void Update()
+        {
+            // AimAngle 파라미터에 값 설정.
+            animator.SetFloat("AimAngle", cameraRig.GetXRotation() * rotationOffset);
+        }
+
+        public void onReload()
+        {
+            // Reload 트리거 파라미터를 설정.
+            animator.SetTrigger("Reload");
+        }
+
+        public float WaitTimeToReload()
+        {
+            return animator.GetCurrentAnimatorStateInfo(2).length / animator.GetFloat("ReloadSpeed");
+        }
 
         public void SetStateParameter(int state)
         {
